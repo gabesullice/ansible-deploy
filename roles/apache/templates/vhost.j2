@@ -1,0 +1,12 @@
+<VirtualHost *:80>
+    ServerName {{ site_domain }}
+    ServerAlias www.{{ site_domain }}
+
+    DocumentRoot {{ sites_directory }}/{{ site_name }}/{{ htdocs }}
+
+    <Directory {{ sites_directory }}/{{ site_name }}/{{ htdocs }}>
+        Options All
+        Allow from all
+        AllowOverride All
+    </Directory>
+</VirtualHost>

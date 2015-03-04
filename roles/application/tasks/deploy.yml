@@ -1,0 +1,21 @@
+---
+
+- name: ensure local settings file is present
+  sudo: yes
+  template:
+    src=local-settings.j2
+    dest={{ sites_directory }}/{{ site_name }}/application/shared/default/local-settings.inc
+    owner={{ file_owner }}
+    group={{ file_group }}
+    mode=0644
+  tags:
+    - deploy
+
+- name: get latest application repo
+  git:
+    dest={{ sites_directory }}/{{ site_name }}/application/shared/repository
+    version={{ git_branch }}
+    accept_hostkey=yes
+    repo=ssh://git@github.com/elevatedthird/{{ site_name }}.git
+  tags:
+    - deploy

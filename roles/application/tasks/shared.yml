@@ -1,0 +1,50 @@
+---
+
+- name: apply files directory permissions
+  sudo: yes
+  file:
+    path={{ sites_directory }}/{{ site_name }}/application/shared/default/files
+    owner={{ file_owner }}
+    group={{ file_group }}
+    mode=0775
+    state=directory
+    recurse=yes
+  tags:
+    - setup
+    - deploy
+
+- name: create latest release
+  command: cp -ra {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }} {{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }} 
+  tags:
+    - deploy
+    - release
+
+- name: remove default directory
+  file:
+    path={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}/sites/default
+    state=absent
+  tags:
+    - deploy
+    - release
+  
+- name: symlink default directory
+  file:
+    path={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}/sites/default
+    src={{ sites_directory }}/{{ site_name }}/application/shared/default
+    force=yes
+    state=link
+  tags:
+    - deploy
+    - release
+  
+- name: ensure proper release permissions
+  sudo: yes
+  file:
+    path={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}
+    owner={{ file_owner }}
+    group={{ file_group }}
+    mode=0755
+    recurse=yes
+  tags:
+    - deploy
+    - release

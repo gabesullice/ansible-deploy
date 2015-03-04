@@ -1,0 +1,19 @@
+---
+
+- name: apply directory structure
+  sudo: yes
+  file: 
+    path={{ sites_directory }}/{{ site_name }}/{{ item.path }}
+    owner={{ file_owner }}
+    group={{ file_group }}
+    mode={{ item.mode }}
+    state=directory
+  with_items:
+    - { path: 'application', mode: '0755' }
+    - { path: 'application/shared', mode: '0755' }
+    - { path: 'application/shared/default', mode: '0775' }
+    - { path: 'application/shared/private', mode: '0774' }
+    - { path: 'application/shared/private/tmp', mode: '0774' }
+    - { path: 'application/releases', mode: '0755' }
+  tags:
+    - setup

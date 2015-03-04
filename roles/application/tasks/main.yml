@@ -1,0 +1,14 @@
+---
+
+- name: set release timestamp
+  command: date +%Y%m%d%H%M%S
+  register: timestamp
+  tags:
+    - deploy
+    - release
+
+- include: setup.yml
+- include: deploy.yml
+- include: launch.yml
+- include: shared.yml
+- include: release.yml

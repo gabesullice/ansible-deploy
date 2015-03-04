@@ -1,0 +1,17 @@
+---
+  
+- name: ensure vhost is present
+  sudo: yes
+  template: src=vhost.j2 dest=/etc/httpd/conf.d/{{ site_domain }}.conf mode=0644
+  notify:
+    - reload httpd
+  tags:
+    - apache
+    - setup
+
+- name: ensure httpd is started
+  sudo: yes
+  service: name=httpd state=started
+  tags:
+    - apache
+    - setup

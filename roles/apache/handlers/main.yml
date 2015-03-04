@@ -1,0 +1,7 @@
+---
+
+- name: reload httpd
+  sudo: yes
+  service: name=httpd state=reloaded
+  tags:
+    -apache

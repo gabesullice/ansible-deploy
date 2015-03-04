@@ -1,0 +1,11 @@
+- name: ensure database is present
+  mysql_db: name={{ db_name }} state=present collation=utf8_general_ci
+  tags:
+    - mysql
+    - setup
+
+- name: create a database user
+  mysql_user: name={{ db_user }} password={{ db_pass }} priv={{ db_name }}.*:ALL host=localhost state=present
+  tags:
+    - mysql
+    - setup

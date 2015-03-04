@@ -1,0 +1,30 @@
+---
+
+- hosts: dev3
+  remote_user: dev3
+  gather_facts: no
+  roles:
+    - apache
+    - mysql
+    - application
+  vars:
+    # Project
+    site_name: # Typically, the name of the github repo
+    drupal_root: site # Dir which has index.php
+    git_branch: develop # This is the branch that will be deployed
+    max_releases: 10 # Number of past releases to keep
+
+    # Host mysql
+    db_name: # name of the db
+    db_user: # name of the db user
+    db_pass: # db password
+
+    # Host apache
+    site_domain: # domain name to put in vhost. Should NOT have www.
+
+    # Host filesystem
+    htdocs: httpdocs # document root expected by apache
+    htsdocs: httpsdocs # ibid.
+    file_owner: dev3
+    file_group: apache
+    sites_directory: /var/www/vhosts/elevatedthird.com

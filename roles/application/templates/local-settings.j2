@@ -1,0 +1,20 @@
+<?php
+
+$databases = array (
+  'default' =>
+  array (
+    'default' =>
+    array (
+      'database' => '{{ db_name }}',
+      'username' => '{{ db_user }}',
+      'password' => '{{ db_pass }}',
+      'host' => 'localhost',
+      'port' => '',
+      'driver' => 'mysql',
+      'prefix' => '',
+    ),
+  ),
+);
+
+$conf['file_private_path'] = '{{ sites_directory }}/{{ site_name }}/application/shared/private';
+$conf['file_temporary_path'] = '{{ sites_directory }}/{{ site_name }}/application/shared/private/tmp';

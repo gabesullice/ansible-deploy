@@ -1,0 +1,26 @@
+---
+
+- name: create htdocs symlink
+  file:
+    path={{ sites_directory }}/{{ site_name }}/{{ htdocs }}
+    src={{ sites_directory }}/{{ site_name }}/application/current
+    owner={{ file_owner }}
+    group={{ file_group }}
+    state=link
+    force=yes
+  sudo: yes
+  tags:
+    - launch
+
+- name: create htsdocs symlink
+  file:
+    path={{ sites_directory }}/{{ site_name }}/{{ htsdocs }}
+    src={{ sites_directory }}/{{ site_name }}/application/current
+    owner={{ file_owner }}
+    group={{ file_group }}
+    state=link
+    force=yes
+  sudo: yes
+  tags:
+    - launch
+

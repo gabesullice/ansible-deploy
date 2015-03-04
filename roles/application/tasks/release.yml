@@ -1,0 +1,16 @@
+---
+
+- name: symlink latest release
+  file:
+    path={{ sites_directory }}/{{ site_name }}/application/current
+    src={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}
+    state=link
+  tags:
+    - release
+
+- name: remove oldest releases
+  shell:
+    ls | sort -r | tail -n +{{ max_releases + 1 }} | xargs rm -rf
+    chdir={{ sites_directory }}/{{ site_name }}/application/releases
+  tags:
+    - release
